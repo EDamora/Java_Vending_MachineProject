@@ -36,6 +36,9 @@ public class Vending_Machine_V2 {
                 case 5:
                     service.prosesPembayaran(scanner, cart);
                     break;
+                case 6:
+                    service.lihatHistory();
+                    break;
                 case 0:
                     running = false;
                     System.out.println("Terimakasih telah menggunakan Vending Machine. ");

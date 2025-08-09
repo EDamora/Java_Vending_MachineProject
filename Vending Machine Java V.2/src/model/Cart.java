@@ -39,4 +39,8 @@ public class Cart {
             }
         System.out.println("Total Belanjaan Kamu : Rp " + totalHarga());
         }
+
+    public void kosongkanKeranjang(){
+        keranjang.clear();
     }
+}

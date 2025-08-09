@@ -18,6 +18,7 @@ public class VendingMachineView {
         System.out.println("3. Hapus Barang dari Keranjang");
         System.out.println("4. Lihat Keranjang");
         System.out.println("5. Bayar");
+        System.out.println("6. Lihat History Belanja");
         System.out.println("0. Keluar");
         System.out.print("Pilihan: ");
     }
