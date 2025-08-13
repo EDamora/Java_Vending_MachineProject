@@ -1,6 +1,6 @@
 package dto;
 
-public class HistoryBelanja {
+public class ShoppingHistoryResponseDTO {
     private int id;
     private String namaBarang;
     private int jumlah;
@@ -9,7 +9,7 @@ public class HistoryBelanja {
     private String tanggal; // ISO string
 
     // Constructor untuk ApiServer (3 parameter)
-    public HistoryBelanja(String namaBarang, double harga, int jumlah) {
+    public ShoppingHistoryResponseDTO(String namaBarang, double harga, int jumlah) {
         this.namaBarang = namaBarang;
         this.harga = harga;
         this.jumlah = jumlah;
@@ -17,13 +17,12 @@ public class HistoryBelanja {
     }
 
     // Constructor untuk HistoryBelanjaService (5 parameter)
-    public HistoryBelanja(int id, String namaBarang, int jumlah, double hargaTotal, String tanggal) {
+    public ShoppingHistoryResponseDTO(int id, String namaBarang, int jumlah, double hargaTotal, String tanggal) {
         this.id = id;
         this.namaBarang = namaBarang;
         this.jumlah = jumlah;
         this.hargaTotal = hargaTotal;
         this.tanggal = tanggal;
-        this.harga = jumlah > 0 ? hargaTotal / jumlah : 0; // Hitung harga satuan otomatis
     }
 
     // Getter & Setter

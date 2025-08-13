@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import service.HistoryBelanjaService;
 import dto.HistoryBelanja;
+import com.google.gson.Gson; // <-- Tambahkan ini
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,6 +20,7 @@ public class ApiServer {
 
         // Service
         HistoryBelanjaService service = new HistoryBelanjaService();
+        Gson gson = new Gson(); // <-- Inisialisasi Gson
 
         // Endpoint POST /history untuk simpan data belanja
         server.createContext("/history", new HttpHandler() {
@@ -62,28 +64,15 @@ public class ApiServer {
                     // Ambil semua history belanja
                     List<HistoryBelanja> histories = service.getAllHistory();
 
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("<html><body>");
-                    sb.append("<h1>History Belanja</h1>");
-                    sb.append("<table border='1'>");
-                    sb.append("<tr><th>Nama Barang</th><th>Harga</th><th>Jumlah</th><th>Total</th></tr>");
-                    for (HistoryBelanja h : histories) {
-                        sb.append("<tr>");
-                        sb.append("<td>").append(h.getNamaBarang()).append("</td>");
-                        sb.append("<td>").append(h.getHarga()).append("</td>");
-                        sb.append("<td>").append(h.getJumlah()).append("</td>");
-                        sb.append("<td>").append(h.getHarga() * h.getJumlah()).append("</td>");
-                        sb.append("</tr>");
-                    }
-                    sb.append("</table>");
-                    sb.append("</body></html>");
+                    String jsonResponse = gson.toJson(histories);
 
-                    byte[] responseBytes = sb.toString().getBytes(StandardCharsets.UTF_8);
-                    exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
+                    byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
+                    exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
                     exchange.sendResponseHeaders(200, responseBytes.length);
                     try (OutputStream os = exchange.getResponseBody()) {
                         os.write(responseBytes);
                     }
+
                 } else {
                     exchange.sendResponseHeaders(405, -1); // Method Not Allowed
                 }
